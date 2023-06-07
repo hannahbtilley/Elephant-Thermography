@@ -1,7 +1,7 @@
 #------------------------------------------
 # Physical activity and temperature changes of captive Asian elephants participating in eco-tourism activities   
 #------------------------------------------
-# Hannah B. TILLEY, Tsz Ching WONG, Derek MURPHY, Kaja WIERUCKA, Annaëlle SURREAULT-CHABLE, Hannah S. MUMBY
+# Hannah B. TILLEY, Tsz Ching WONG, Derek MURPHY, Kaja WIERUCKA, Annaëlle SURREAULT-CHABLÊ, Hannah S. MUMBY
 
 library(readr)
 library(dplyr)
