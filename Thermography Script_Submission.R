@@ -3,6 +3,7 @@
 #------------------------------------------
 # Hannah B. TILLEY, Tsz Ching WONG, Derek MURPHY, Kaja WIERUCKA, Annaëlle SURREAULT-CHABLÊ, Hannah S. MUMBY
 
+# load libraries
 library(readr)
 library(dplyr)
 library(lme4)
@@ -19,8 +20,8 @@ library(MASS)
 library(tidyverse)
 library(rstatix)
 
+# Import data
 setwd("~/Desktop/Thermography Elephants/1. Shirley")
-
 data <- read.csv("Master datasheet 09092022.csv", na = "NA") # data for all 6 elephant polo days (half and full day)
 str(data)
 
@@ -59,7 +60,6 @@ plot(check_model)
 plot(effects::allEffects(mod1))  
 qqnorm(resid(mod1))
 qqline(resid(mod1))
-
 plot(predict(mod1))
 
 
@@ -76,14 +76,6 @@ pred <- cbind(newdat, predictInterval(mod1, newdat))
 pred %>% ggplot(aes(x= Body_part, y= fit)) + geom_boxplot(alpha =0.4, fill= "grey20", lwd= 0.7, notch = TRUE) + xlab("Body Region") + ylab("Temperature Difference (°C)") + theme_bw() + mynamestheme +
   scale_x_discrete(labels = c("Average", "Axilla", "Foreleg","Pinna","Shoulder")) + ylim(4,30) + geom_signif(annotations = c(formatC(annot_2, digits=2),formatC(annot_3, digits= 2), formatC(annot_1, digits= 2)), 
                                                                                                              y_position = c(23,25,27), xmin=c(1,1,1), xmax=c(2,4,5), size = 0.5, textsize=10, family = "serif")
-
-# Figure 3: Temperature before and after polo- polo playing elephants
-Fig3 <- data %>% dplyr::select(ID, Before.After, Body_part, Temperature, Elephant_individual) %>% group_by(ID,Body_part,.drop=FALSE)
-
-Fig3 %>% ggplot(aes(x= Body_part, y=Temperature, fill= Before.After)) + xlab("Body Region") + 
-  ylab("Temperature (°C)") + theme_bw() + mynamestheme + stat_boxplot(geom ='errorbar', width = 0.9) + ylim(0,40) +
-  geom_boxplot(outlier.color = "black", outlier.shape = 21, outlier.fill = "white", outlier.size = 3, width = 0.9) + 
-  scale_fill_manual(values=c("#DC143C","#add8e6")) + labs(fill = "Activity") + scale_x_discrete(labels = c("Average", "Axilla", "Foreleg","Pinna","Shoulder")) 
 
 # ANOVA------------------------------------------
 # comparison between half and full day of polo/ non- polo
