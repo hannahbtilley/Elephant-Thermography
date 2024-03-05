@@ -4,7 +4,7 @@
 **Repository Contents:**
 
 Data:
-- Master datasheet 09092022.csv: All thermogram data for elephants before and after activity 
+- Master datasheet.csv: All thermogram data for elephants before and after activity 
 - Full_Half.csv: Rearranged data for comparing elephants temperature after activity for full day and half days
 
 R script (annotated): 
