@@ -20,10 +20,8 @@ library(tidyverse)
 library(rstatix)
 library(performance)
 
-setwd("~/Desktop/Thermography Elephants/1. Shirley")
-
 # Comparison between half and full day of polo/ non-polo
-full.halfdata <- read.csv("~/Desktop/Thermography Elephants/1. Shirley/Full_Half.csv")
+read.csv("Full_Half.csv")
 
 model <- lmer(Temperature_after ~ full.half + Body_part + (1|Elephant_individual), data = full.halfdata)
 summary(model)
@@ -32,7 +30,7 @@ boxplot(full.halfdata$Temperature_after~full.halfdata$full.half)
 boxplot(full.halfdata$Temperature_after~full.halfdata$PoloPractice)
 
 # Data for all 6 elephant polo days (half and full day)
-data <- read.csv("Master datasheet 09092022.csv", na = "NA") 
+data <- read.csv("Master datasheet.csv", na = "NA") 
 str(data)
 
 data$Date <- as.Date(data$Date, format = "%d-%m-%y")
@@ -42,12 +40,6 @@ data$Before.After <- as.factor(data$Before.After)
 data$Body_part <- as.factor(data$Body_part)
 data$ID <- paste(data$Date, data$Elephant_individual)
 
-# Setting the theme for plots
-mynamestheme <- theme(plot.title = element_text(family = "Times New Roman", face = "bold", size = (13)), 
-                      legend.title = element_text(colour = "black",  face = "bold.italic", family = "Times New Roman", size = (13)), 
-                      legend.text = element_text(face = "italic", colour="black",family = "Times New Roman", size = (13)), 
-                      axis.title = element_text(family = "Times New Roman", face= "bold", size = (15), colour = "black"),
-                      axis.text = element_text(family = "Times New Roman", colour = "black", size = (15)))
 
 # MODELS------------------------------------------
 model_all <- data %>% dplyr::select(ID, Date, Before.After, PoloPractice, Body_part, Temperature, Elephant_individual) %>% group_by(ID,Body_part, .drop=FALSE) %>%
@@ -59,22 +51,13 @@ summary(mod)
 # Likelihood ratio test
 anova(mod) 
 
+# Interaction term is not significant. In order to be able to interpret the results of the main effects, we must run a second model without the interaction term.
 # Final LMM model
 mod1 <- lmer(Temperature_difference ~ PoloPractice + Body_part + (1|Date) + (1|Elephant_individual), data= model_all)
 summary(mod1)
 anova(mod1)
 
 summary(mod1)$varcor
-
-# Check model fit
-check_model <- simulateResiduals(fittedModel = mod1, n = 500)
-par(mar = c(2, 2, 2, 2))
-plot(check_model)
-plot(effects::allEffects(mod1))  
-qqnorm(resid(mod1))
-qqline(resid(mod1))
-
-plot(predict(mod1))
 
 # PLOTS------------------------------------------
 # Figure 2: Temperature difference before and after polo
@@ -86,7 +69,7 @@ pred <- cbind(model_all, predictInterval(mod1, data))
 newdat <- with(model_all, expand.grid(Temperature_difference = unique(Temperature_difference), Body_part = unique(Body_part), Date = unique(Date), PoloPractice = unique(PoloPractice), Elephant_individual = unique(Elephant_individual)))
 pred <- cbind(newdat, predictInterval(mod1, newdat))
 
-pred %>% ggplot(aes(x= Body_part, y= fit)) + geom_boxplot(alpha =0.4, fill= "grey20", lwd= 0.7, notch = TRUE) + xlab("Body Region") + ylab("Temperature Difference (°C)") + theme_bw() + mynamestheme +
+pred %>% ggplot(aes(x= Body_part, y= fit)) + geom_boxplot(alpha =0.4, fill= "grey20", lwd= 0.7, notch = TRUE) + xlab("Body Region") + ylab("Temperature Difference (°C)") + theme_bw() +
   scale_x_discrete(labels = c("Average", "Axilla", "Foreleg","Pinna","Shoulder")) + ylim(4,30) + geom_signif(annotations = c(formatC(annot_2, digits=2),formatC(annot_3, digits= 2), formatC(annot_1, digits= 2)), 
                                                                                                              y_position = c(23,25,27), xmin=c(1,1,1), xmax=c(2,4,5), size = 0.5, textsize=10, family = "serif")
 #######
@@ -106,6 +89,7 @@ newdat <- with(model_all, expand.grid(Temperature_difference = unique(Temperatur
 pred <- cbind(newdat, predictInterval(mod1b, newdat))
 
 # Final Graph
-pred %>% ggplot(aes(x= Body_part, y= fit)) + geom_jitter(data =model_all[!is.na(model_all$Temperature_difference),], aes(x=Body_part, y=Temperature_difference), width = 0.2, alpha = 0.3) + geom_boxplot(alpha =0.4, fill= "grey20", lwd= 0.7, notch = TRUE) + xlab("Body Region") + ylab("Temperature Difference (°C)") + theme_bw() + mynamestheme +
+pred %>% ggplot(aes(x= Body_part, y= fit)) + geom_jitter(data =model_all[!is.na(model_all$Temperature_difference),], aes(x=Body_part, y=Temperature_difference), width = 0.2, alpha = 0.3) + geom_boxplot(alpha =0.4, fill= "grey20", lwd= 0.7, notch = TRUE) + xlab("Body Region") + ylab("Temperature Difference (°C)") + theme_bw() +
   scale_x_discrete(labels = c("Average", "Axilla", "Foreleg","Pinna","Shoulder")) + ylim(0,30) + geom_signif(annotations = c(formatC(annot_2, digits=2),formatC(annot_3, digits= 2), formatC(annot_1, digits= 2)), 
                                                                                                              y_position = c(22,25,28), xmin=c(1,1,1), xmax=c(2,4,5), size = 0.5, textsize=10, family = "serif")
+
