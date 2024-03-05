@@ -1,4 +1,4 @@
-# Physical activity and temperature changes of captive Asian elephants participating in eco-tourism activities   
+# Physical activity and temperature changes of captive Asian elephants participating in eco-tourism activities and elephant polo
 **Authors:** Hannah B. TILLEY, Derek MURPHY, Kaja WIERUCKA, Tsz Ching WONG, Annaëlle SURREAULT-CHÂBLE, Hannah S. MUMBY
 
 **Repository Contents:**
