@@ -4,6 +4,8 @@
 **Repository Contents:**
 
 Data:
+- Data Dictionary.txt: explanations for what columns in each data file (below) represent
+  
 - Master datasheet.csv: All thermogram data for elephants before and after activity 
 - Full_Half.csv: Rearranged data for comparing elephants temperature after activity for full day and half days
 
