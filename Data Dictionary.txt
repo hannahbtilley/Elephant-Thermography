@@ -1,0 +1,29 @@
+------------------------------------------
+Physical activity and temperature changes of Asian elephants (Elephas maximus) participating in eco-tourism activities and elephant polo
+------------------------------------------
+Hannah B. TILLEY, Derek MURPHY, Kaja WIERUCKA, Tsz Ching WONG, Annaelle SURREAULT-CHABLE, Hannah S. MUMBY
+
+Explanation of column names for each data file:
+
+Full_Half.csv
+
+Full.half- categorical variable indicating whether the elephant took part in a 'full' or 'half' day of activity.
+Date- date on which the activity occurred.
+Elephant_individual- the ID of each elephant involved in the study.
+Photo_ID- the ID of each thermogram used in the study. 
+Body_part- categorical variable for the elephant body parts used in the study (5 levels: 'average','axilla','foreleg','outer point of ear','shoulder').
+Temperature_before- numeric variable indicating the temperature of body parts of each elephant prior to activity ('C).
+Temperature_after- numeric variable indicating the temperature of body parts of each elephant after activity ('C).
+Difference- numeric variable indicating the temperature change of body parts between the temperatures before and after activity ('C). 
+
+
+Master datasheet.csv
+
+Date- date on which the activity occurred.
+Elephant_individual - the ID of each elephant involved in the study.
+PoloPractice- binary categorical variable indicating whether the elephant took part in the polo tournament on that day (yes) or not (no). If 'no' then elephants undertook other tourism activities.
+Before/after- categorical variable (2 levels: 'before' and 'after') indicating whether the thermogram was taken prior to or after activity.
+Photo_ID- the ID of each thermogram used in the study.
+Body_part- categorical variable for the elephant body parts used in the study (5 levels: 'average','axilla','foreleg','outer point of ear','shoulder').
+Ambient temperature- numeric variable indicating the environmental regional temperature at the time the thermogram was taken ('C).
+Temperature - numeric variable indicating the temperature of elephants' body parts ('C).
