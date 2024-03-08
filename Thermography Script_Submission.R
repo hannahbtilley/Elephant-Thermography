@@ -21,7 +21,7 @@ library(rstatix)
 library(performance)
 
 # Comparison between half and full day of polo/ non-polo
-read.csv("Full_Half.csv")
+full.halfdata <- read.csv("Full_Half.csv")
 
 model <- lmer(Temperature_after ~ full.half + Body_part + (1|Elephant_individual), data = full.halfdata)
 summary(model)
